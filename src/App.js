@@ -1,23 +1,32 @@
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./pages/Navbar";
-import Home from "./pages/Home";
-import Expense from "./pages/Expense";
-import Nopage from "./pages/Nopage";
-import Income from "./pages/Income";
-import Statistics from "./pages/Statistics";
-import { GlobalProvider } from "./Global";
-export default function App() {
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./auth/Login";
+import SignUp from "./auth/SignUp";
+import Detail from "./Detail";
+import Home from "./Home";
+import { useSelector } from "react-redux";
+import { selectLoggedInUser } from "./app/features/user/UserSlice";
+
+const App = () => {
+  const loggedInUserId = useSelector(selectLoggedInUser);
+
   return (
-    <GlobalProvider>
-      <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />} />
-          <Route path="income" element={<Income />} />
-          <Route path="expense" element={<Expense />} />
-          <Route path="statistics" element={<Statistics />} />
-          <Route path="*" element={<Nopage />} />
-        </Route>
-      </Routes>
-    </GlobalProvider>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route
+        path="/login"
+        element={!loggedInUserId ? <Login /> : <Navigate to="/detail" />}
+      />
+      <Route path="/signup" element={<SignUp />} />
+      <Route
+        path="/detail"
+        element={
+          loggedInUserId ? <Detail /> : <Navigate to="/login" />
+        }
+      />
+    </Routes>
   );
-}
+};
+
+
+export default App;
