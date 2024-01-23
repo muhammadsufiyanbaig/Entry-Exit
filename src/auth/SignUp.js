@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useDispatch, useSelector } from 'react-redux';
-import { addUser, selectUserArray } from '../app/features/user/UserSlice';
+import { useDispatch,useSelector } from 'react-redux';
+import { addUser } from '../app/features/user/UserSlice';
+import { selectUserArray } from "../app/features/user/UserSlice";
 
 const SignUp = () => {
+  const userArray = useSelector(selectUserArray);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userArray = useSelector(selectUserArray);
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,8 +50,11 @@ const SignUp = () => {
     };
 
     await dispatch(addUser(userObject));
-
     navigate('/detail');
+    const user = userArray.find((u) => u.details.email === formData.email);
+if (user) {
+  setError("Email is already registered")
+}
   };
 
   const togglePasswordVisibility = () => {
@@ -184,6 +189,7 @@ const SignUp = () => {
             <p className="text-red-500">Passwords must be match.</p>
           )}
         </div>
+        {error && <p className="text-sm text-red-500">{error}</p>}
           <div>
             <button
               type="submit"

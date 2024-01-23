@@ -1,11 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
-// import { Link, Navigate } from "react-router-dom";
-import { selectLoggedInUser } from "./app/features/user/UserSlice";
+import { Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser, selectLoggedInUser } from "./app/features/user/UserSlice";
 
 const Detail = () => {
+  const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
 
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    // window.location.href = "/signup";
+    <Navigate to={'/signup'}/> 
+  };
   return (
     <div>
       {loggedInUser && (
@@ -16,7 +22,7 @@ const Detail = () => {
               <p className="font-bold text-lg text-blue-500 mt-4">Your Name:</p>
               <div className="p-2 bg-gray-200">
                 <p className="text-md text-gray-900">
-                  {loggedInUser.details.name || ""}
+                  {loggedInUser.details.name}
                 </p>
               </div>
             </div>
@@ -26,14 +32,19 @@ const Detail = () => {
               </p>
               <div className="p-2 bg-gray-200">
                 <p className="text-md text-gray-900">
-                  {loggedInUser.details.email || ""}
+                  {loggedInUser.details.email}
                 </p>
               </div>
             </div>
             <div>
-              {/* <Navigate to={'/login'}>
-              <p>LogOut</p>
-              </Navigate> */}
+            <div>
+              <button
+                onClick={handleLogout}
+                className="mt-4 w-full text-center border-2 border-blue-500 font-semibold leading-6 text-blue-500 hover:text-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out" 
+              >
+                Logout
+              </button>
+            </div>
             </div>
           </div>
         </div>
