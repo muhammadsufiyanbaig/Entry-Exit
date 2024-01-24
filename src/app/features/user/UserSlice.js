@@ -14,7 +14,6 @@ export const userSlice = createSlice({
       const existingUser = state.users.find(
         (user) => user.details.email === action.payload.email
       );
-    
       if (!existingUser) {
         const user = {
           id: nanoid(),
