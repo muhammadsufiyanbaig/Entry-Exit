@@ -9,7 +9,6 @@ const Detail = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    // window.location.href = "/signup";
     <Navigate to={'/signup'}/> 
   };
   return (
