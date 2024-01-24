@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch,useSelector } from 'react-redux';
 import { addUser } from '../app/features/user/UserSlice';
-import { selectUserArray } from "../app/features/user/UserSlice";
+import { selectUserArray,  } from "../app/features/user/UserSlice";
 
 const SignUp = () => {
   const userArray = useSelector(selectUserArray);

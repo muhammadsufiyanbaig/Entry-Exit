@@ -20,7 +20,9 @@ export const userSlice = createSlice({
           details: action.payload,
         };
         state.users.push(user);
-      } 
+      } else{
+        alert("User already exists")
+      }
     },
     
     loginUser: (state, action) => {
