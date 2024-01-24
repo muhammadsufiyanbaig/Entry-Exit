@@ -13,7 +13,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-
   const togglePasswordVisibility = () => {
     setShow(!show);
   };
@@ -24,7 +23,6 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const user = userArray.find((u) => u.details.email === formData.email);
@@ -34,7 +32,6 @@ const Login = () => {
       setError("Invalid email or password");
     }
   };
-
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -115,5 +112,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
